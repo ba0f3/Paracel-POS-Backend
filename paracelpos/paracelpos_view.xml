@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!--
+##############################################################################
+#
+# Copyright (c) 2012 RiTH-Tech (http://rith-tech.com). All Right Reserved
+#
+# Author : Huy Doan (huy.doan@rith-tech.com)
+#
+##############################################################################
+//-->
+<openerp>
+    <data>
+	<!--
+	######################################################################
+        # Manage Floors
+	######################################################################
+        //-->
+        <record model="ir.ui.view" id="view_pos_floor">
+            <field name="name">Floor</field>
+            <field name="model">pos.floor</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Floor">
+                    <field name="name"/>
+                    <field name="description"/>
+	            <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_pos_floor_form">
+            <field name="name">Floor</field>
+            <field name="model">pos.floor</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Floor">
+		    <field name="name"/>
+                    <field name="description"/>
+                    <field name="icon" widget='image'/>
+                    <newline />
+                    <field name="background" widget='image'/>
+                    <newline />
+                    <field nolabel="1" name="table_ids" colspan="4"/>
+		    <separator colspan="4"/>
+                        <group colspan="4" col="8">
+                            <field name="state" widget="statusbar" statusbar_visible="draft,open,close" statusbar_colors='{"close":"red"}'/>
+                            <button name="set_open" string="Open Floor" type="object" states="draft,close" icon="gtk-ok"/>
+                            <button name="set_close" string="Close Floor" type="object" states="open" icon="gtk-cancel"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_config_floor">
+            <field name="name">Manage Floors</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pos.floor</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem
+            parent="point_of_sale.menu_point_config_product"
+            action="action_config_floor"
+            id="menu_point_config_floor"
+            groups="point_of_sale.group_pos_manager"/>
+
+        <!--
+	######################################################################
+        # Manage Tables
+	######################################################################
+        //-->
+        <record model="ir.ui.view" id="view_pos_table">
+            <field name="name">Table</field>
+            <field name="model">pos.table</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Table">
+                    <field name="name"/>
+                    <field name="floor_id"/>
+                    <field name="description"/>
+                    <newline />
+                    <field name="icon" widget='image'/>
+	            <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_pos_table_form">
+            <field name="name">Table</field>
+            <field name="model">pos.table</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Table">
+		    <field name="name"/>
+                    <field name="floor_id"/>
+                    <field name="description"/>
+                    <newline/>
+                    <field name="x"/>
+                    <field name="y"/>
+		    <separator colspan="4"/>
+                        <group colspan="4" col="8">
+                            <field name="state" widget="statusbar" statusbar_visible="draft,open,close" statusbar_colors='{"close":"red"}'/>
+                            <button name="set_open" string="Open Table" type="object" states="draft,close" icon="gtk-ok"/>
+                            <button name="set_close" string="Close Table" type="object" states="open" icon="gtk-cancel"/>
+                        </group>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_config_table">
+            <field name="name">Manage Tables</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pos.table</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem
+            parent="point_of_sale.menu_point_config_product"
+            action="action_config_table"
+            id="menu_point_config_table"
+            groups="point_of_sale.group_pos_manager"/>
+    </data>
+</openerp>
